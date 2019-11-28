@@ -47,6 +47,7 @@ RUN set -eux \
 	&& docker-php-ext-install -j$(nproc) \
 		intl \
 		zip \
+		pdo_mysql \
 	&& pecl install \
 		apcu-${APCU_VERSION} \
 	&& docker-php-ext-enable --ini-name 20-apcu.ini apcu \
@@ -84,7 +85,7 @@ ENV STABILITY ${STABILITY:-stable}
 ARG SYMFONY_VERSION=""
 
 # Download the Symfony skeleton and leverage Docker cache layers
-RUN composer create-project "symfony/skeleton ${SYMFONY_VERSION}" . --stability=$STABILITY --prefer-dist --no-dev --no-progress --no-scripts --no-plugins --no-interaction
+RUN composer create-project "symfony/website-skeleton ${SYMFONY_VERSION}" . --stability=$STABILITY --prefer-dist --no-dev --no-progress --no-scripts --no-plugins --no-interaction
 
 ###> recipes ###
 ###< recipes ###
